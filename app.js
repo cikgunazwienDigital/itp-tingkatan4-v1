@@ -131,7 +131,7 @@ $("#submitBtn").onclick=()=>{
   }
 };
 
-$("#adminBtn").onclick=()=>$("#modal").classList.remove("hidden");
+$("#adminBtn").onclick=()=>{   window.open(     "https://script.google.com/macros/s/AKfycbysaFrwQXDpptrlMHgNI0wcYsI0PFO4dKMuauCi_WrX_2a9-vBWv04a8Yl5L-1vVusmkw/exec?mode=guru",     "_blank"   ); };
 $("#cancelPin").onclick=()=>$("#modal").classList.add("hidden");
 $("#loginPin").onclick=()=>{
   $("#modal").classList.add("hidden");
