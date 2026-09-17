@@ -72,24 +72,51 @@ function renderAdmin(){
   $("#statL").textContent=records.filter(r=>r.jantina==="Lelaki").length;
   $("#statP").textContent=records.filter(r=>r.jantina==="Perempuan").length;
   $("#statK").textContent=new Set(records.map(r=>r.kelas)).size;
-  const classes=[...new Set(records.map(r=>r.kelas))].sort();
-  $("#filterClass").innerHTML='<option value="">Semua kelas</option>'+classes.map(c=>`<option>${c}</option>`).join("");
-  renderTable(); renderSummary(records);
+  renderTable();
+  renderFilteredSummary();
+}
+function getFilteredRecords(){
+  const q=$("#search").value.toLowerCase().trim();
+  const fc=$("#filterClass").value;
+  const fg=$("#filterGender").value;
+  return getRecords().filter(r =>
+    (!q || r.nama.toLowerCase().includes(q)) &&
+    (!fc || r.kelas===fc) &&
+    (!fg || r.jantina===fg)
+  );
 }
 function renderTable(){
-  const q=$("#search").value.toLowerCase(), fc=$("#filterClass").value;
-  const records=getRecords().filter(r=>(!q||r.nama.toLowerCase().includes(q))&&(!fc||r.kelas===fc));
+  const records=getFilteredRecords();
   $("#recordsBody").innerHTML=records.map(r=>{
     const top=[...r.traits].sort((a,b)=>b.percent-a.percent).slice(0,3).map(t=>`${t.name} (${t.percent}%)`).join(", ");
     return `<tr><td>${r.nama}</td><td>${r.kelas}</td><td>${r.jantina}</td><td>${top}</td><td><button onclick="showDetail(${r.id})">Lihat</button></td></tr>`;
-  }).join("") || '<tr><td colspan="5">Tiada rekod.</td></tr>';
+  }).join("") || '<tr><td colspan="5">Tiada rekod untuk tapisan ini.</td></tr>';
 }
-$("#search").addEventListener("input",renderTable); $("#filterClass").addEventListener("change",renderTable);
+$("#search").addEventListener("input",()=>{renderTable();renderFilteredSummary()});
+$("#filterClass").addEventListener("change",()=>{renderTable();renderFilteredSummary()});
+$("#filterGender").addEventListener("change",()=>{renderTable();renderFilteredSummary()});
 
-function renderSummary(records){
-  if(!records.length){$("#summaryBars").innerHTML="<p>Belum ada data.</p>";return}
-  const avg=TRAITS.map((name,i)=>records.reduce((s,r)=>s+r.traits[i].percent,0)/records.length);
-  $("#summaryBars").innerHTML=avg.map((v,i)=>`<div class="barRow"><span>${TRAITS[i]}</span><div class="barTrack"><div class="barFill" style="width:${v}%"></div></div><b>${v.toFixed(1)}%</b></div>`).join("");
+function renderFilteredSummary(){
+  const records=getFilteredRecords();
+  const fc=$("#filterClass").value || "Semua kelas";
+  const fg=$("#filterGender").value || "Semua jantina";
+  $("#summaryScope").textContent=`${fc} • ${fg}`;
+
+  if(!records.length){
+    $("#summaryBars").innerHTML="<p>Tiada data untuk tapisan ini.</p>";
+    $("#topTraits").innerHTML="<p>Tiada data untuk dirumuskan.</p>";
+    return;
+  }
+
+  const avg=TRAITS.map((name,i)=>({
+    name,
+    value:records.reduce((s,r)=>s+r.traits[i].percent,0)/records.length
+  }));
+
+  $("#summaryBars").innerHTML=avg.map(x=>`<div class="barRow"><span>${x.name}</span><div class="barTrack"><div class="barFill" style="width:${x.value}%"></div></div><b>${x.value.toFixed(1)}%</b></div>`).join("");
+
+  const top=[...avg].sort((a,b)=>b.value-a.value).slice(0,3);
+  $("#topTraits").innerHTML=top.map((x,i)=>`<div class="topTrait"><span class="rank">TOP ${i+1}</span><b>${x.name}</b><strong>${x.value.toFixed(1)}%</strong></div>`).join("");
 }
 window.showDetail=(id)=>{
   const r=getRecords().find(x=>x.id===id); if(!r)return;

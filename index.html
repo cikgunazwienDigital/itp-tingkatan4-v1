@@ -21,7 +21,16 @@
         <h2>Maklumat Murid</h2>
         <div class="grid3">
           <label>Nama murid<input id="nama" type="text" placeholder="Nama penuh"/></label>
-          <label>Kelas<input id="kelas" type="text" placeholder="Contoh: 4 Ibnu Abbas"/></label>
+          <label>Kelas
+<select id="kelas">
+  <option value="">Pilih kelas</option>
+  <option>4 AL FARABI</option>
+  <option>4 IBNU ABBAS</option>
+  <option>4 IBNU BATUTAH</option>
+  <option>4 IBNU KHALDUN</option>
+  <option>4 AL JABAR</option>
+</select>
+</label>
           <label>Jantina
             <select id="jantina"><option value="">Pilih</option><option>Lelaki</option><option>Perempuan</option></select>
           </label>
@@ -61,7 +70,19 @@
       <div class="card">
         <div class="filters">
           <input id="search" placeholder="Cari nama murid..."/>
-          <select id="filterClass"><option value="">Semua kelas</option></select>
+          <select id="filterClass">
+  <option value="">Semua kelas</option>
+  <option>4 AL FARABI</option>
+  <option>4 IBNU ABBAS</option>
+  <option>4 IBNU BATUTAH</option>
+  <option>4 IBNU KHALDUN</option>
+  <option>4 AL JABAR</option>
+</select>
+<select id="filterGender">
+  <option value="">Semua jantina</option>
+  <option>Lelaki</option>
+  <option>Perempuan</option>
+</select>
         </div>
         <div class="tableWrap">
           <table>
@@ -69,6 +90,12 @@
             <tbody id="recordsBody"></tbody>
           </table>
         </div>
+      </div>
+
+      <div class="card">
+        <h3>Rumusan Data Ditapis</h3>
+        <p id="summaryScope" class="muted">Semua kelas • Semua jantina</p>
+        <div id="topTraits" class="topTraits"></div>
       </div>
 
       <div class="card">

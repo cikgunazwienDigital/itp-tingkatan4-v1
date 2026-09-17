@@ -24,3 +24,11 @@ button.ghost{background:white;color:var(--navy);border:1px solid var(--line)}.pa
 .detailHead{display:flex;justify-content:space-between;gap:12px;align-items:start}.traitGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.trait{border:1px solid var(--line);border-radius:14px;padding:12px}.trait b{font-size:22px}.trait small{display:block;color:var(--muted)}
 .answerGrid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}.ans{border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.ans b{display:block}.modal{position:fixed;inset:0;background:rgba(10,14,40,.52);display:grid;place-items:center;padding:20px}.modalCard{width:min(380px,100%);background:white;border-radius:20px;padding:22px}.modalActions{display:flex;justify-content:flex-end;gap:10px;margin:14px 0}
 @media(max-width:800px){.grid3,.stats,.traitGrid{grid-template-columns:1fr}.barRow{grid-template-columns:120px 1fr 52px}.answerGrid{grid-template-columns:repeat(5,1fr)}.topbar{align-items:flex-start;gap:12px}.filters{flex-direction:column}}
+
+.muted{color:var(--muted);margin:4px 0 0}
+.topTraits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.topTrait{border:1px solid var(--line);border-radius:16px;padding:16px;background:linear-gradient(180deg,#fff,#fafbff)}
+.topTrait .rank{font-size:12px;color:var(--muted);font-weight:800}
+.topTrait b{display:block;font-size:20px;margin:5px 0}
+.topTrait strong{font-size:28px;color:var(--navy)}
+@media(max-width:800px){.topTraits{grid-template-columns:1fr}}
