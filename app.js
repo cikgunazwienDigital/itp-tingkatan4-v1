@@ -2,7 +2,7 @@
 const QUESTIONS = ["menentukan sesuatu perkara mengikut keputusan sendiri", "boleh menghasilkan karya kreatif", "tidak peduli kritikan terhadap saya", "suka aktiviti yang berbentuk perbincangan", "sangat mementingkan pencapaian dalam peperiksaan", "boleh beradaptasi dengan perubahan", "gemar aktiviti yang mencabar pemikiran", "berupaya memberi arahan dengan berkesan", "lebih selesa berada dalam persekitaran yang teratur", "tidak membiarkan kritikan melemahkan semangat saya", "suka membantu orang lain tanpa mengharapkan balasan", "suka membandingkan maklumat sebelum membuat pilihan", "tidak yakin dengan kebolehan diri sendiri", "mempunyai hala tuju hidup yang jelas", "tidak pernah melakukan kesilapan", "suka diberi kebebasan dalam membuat keputusan", "boleh menghasilkan karya seni", "mempertahankan pandangan saya dengan tegas", "suka bergaul dengan ramai orang", "memastikan kejayaan dicapai", "suka mempelajari budaya yang berbeza", "lebih gemar memahami sesuatu konsep berbanding menghafal", "berupaya mendorong orang lain dalam aktiviti berkumpulan", "menyusun tugasan mengikut keutamaan", "mempunyai tekad untuk menyelesaikan tugasan", "suka membantu orang lain tanpa mengira latar belakang", "mempertimbangkan pelbagai perkara sebelum membuat keputusan", "tidak mempunyai kelebihan diri", "mencari peluang untuk mencapai impian", "tidak pernah berasa takut", "boleh bekerja bersendirian tanpa dipengaruhi orang lain", "mempunyai imaginasi yang tinggi", "sentiasa ingin menang dalam menyuarakan pendapat", "sentiasa memulakan perbualan dengan orang lain", "memastikan prestasi diri pada tahap yang terbaik", "menggunakan pendekatan berbeza dalam menyelesaikan masalah", "boleh menghubungkait sesuatu perkara yang dipelajari", "berani mengambil risiko dalam membuat keputusan", "menyusun pakaian mengikut warna", "mampu bangkit semula selepas mengalami kegagalan", "suka memudahkan urusan orang lain", "sering mengkaji bagaimana sesuatu alat berfungsi", "meragui kebolehan diri saya", "proaktif dalam setiap perkara yang dilakukan", "tidak pernah berselisih faham", "selesa melakukan tugasan mengikut kawalan sendiri", "boleh mengubah suai sesuatu menjadi lebih menarik", "berterus terang jika tidak berpuas hati", "berinteraksi dengan ramai orang", "mengutamakan pencapaian dalam perkara yang dimulakan", "menyesuaikan diri dengan perubahan keadaan", "suka mendalami maklumat baharu untuk menambah pengetahuan", "mengambil berat kebajikan ahli kumpulan", "suka menyusun barang mengikut kategori", "tetap berusaha walaupun menghadapi kesukaran", "bersedia membantu tanpa diminta", "membandingkan secara mendalam tentang sesuatu perkara", "selalu beranggapan diri akan dikritik", "telah menetapkan hala tuju kerjaya", "tidak pernah rasa bersalah", "berpuas hati apabila dapat membuat keputusan sendiri", "menghasilkan sesuatu yang unik", "mengutamakan matlamat sendiri berbanding perasaan orang lain", "yakin untuk bercakap di hadapan orang ramai", "suka mencabar diri", "suka mencuba perkara baharu", "suka meneroka perkembangan teknologi terkini", "memastikan tugasan kumpulan diselesaikan", "suka melakukan perkara yang rutin", "sentiasa berikhtiar untuk menyelesaikan tugasan", "mudah mengasihani orang lain", "meneliti sesuatu perkara daripada pelbagai perspektif", "saya tidak layak gembira", "menetapkan matlamat untuk mencapai cita-cita", "sentiasa jujur", "menyusun jadual belajar sendiri", "suka mempelbagaikan idea dalam sesuatu perkara", "cepat bertindak apabila dicabar", "seronok terlibat dengan aktiviti berkumpulan", "bermotivasi apabila melihat orang lain berjaya", "menghormati kepercayaan dan gaya hidup orang lain", "menggemari permainan berbentuk penyelesaian masalah", "boleh membawa perubahan positif dalam kumpulan", "suka kepada cara kerja yang jelas", "boleh mengawal emosi apabila menghadapi kesukaran", "prihatin terhadap keperluan orang lain", "memastikan sesuatu maklumat adalah sahih", "mudah berasa rendah diri", "bercita-cita mencipta sesuatu yang boleh membawa perubahan", "sentiasa mesra dengan semua orang", "menentukan sendiri aktiviti masa lapang", "menyelesaikan masalah dengan pelbagai cara", "yakin idea saya adalah yang terbaik", "lebih bersemangat apabila berinteraksi dengan orang lain", "sentiasa berusaha untuk menjadi yang terbaik di dalam kelas", "suka pelbagai genre filem", "akan bertanya soalan untuk mendapatkan penjelasan", "memastikan pendapat setiap ahli kumpulan didengari", "mengurus waktu ulang kaji mengikut jadual", "tidak membiarkan kegagalan menghalang impian saya", "sentiasa mencari jalan untuk menawarkan bantuan", "menilai idea berdasarkan fakta", "selalu menyalahkan diri sendiri", "meletakkan matlamat untuk kerjaya masa hadapan", "tidak pernah mungkir janji", "bebas memilih bidang kerjaya", "suka menggabungkan pelbagai idea", "menyuarakan pendapat tanpa menghiraukan orang lain", "suka melibatkan diri dalam aktiviti sosial", "akan memastikan kejayaan dicapai dalam setiap pertandingan", "berminat mencuba pelbagai kaedah pembelajaran", "suka menyertai kuiz", "yakin membuat keputusan dalam kumpulan", "mengutamakan kekemasan diri", "sentiasa mengekalkan motivasi diri", "suka membantu guru", "suka menganalisis maklumat", "berasa tidak mampu untuk berjaya", "menetapkan impian untuk masa hadapan", "sentiasa gembira", "akan menentukan tindakan saya", "tidak suka kerja yang berstruktur", "tidak berdiam diri apabila pendapat ditolak", "yakin apabila berada di khalayak ramai", "suka bersaing", "boleh menyesuaikan diri dalam pelbagai keadaan", "mengaplikasi pengetahuan dalam kehidupan seharian", "berkeyakinan untuk memimpin", "sentiasa menyiapkan tugasan mengikut perancangan", "tidak mudah terpengaruh dengan orang lain", "mengambil berat terhadap orang lain", "berfikir sebelum bertindak", "malu dengan diri sendiri", "mempunyai inspirasi untuk berjaya", "sentiasa menepati masa", "suka membuat perancangan sendiri", "suka aktiviti inovasi", "berani mengkritik pendapat orang lain", "suka meluangkan masa lapang bersama rakan-rakan", "mengekalkan motivasi untuk mencapai matlamat", "mempelbagaikan gaya penampilan", "suka membincangkan perkara ilmiah", "suka menetapkan peraturan dalam kumpulan", "memastikan barangan dalam keadaan tersusun", "terus berjuang walaupun mengalami kegagalan", "simpati terhadap kesusahan orang lain", "cuba memahami sebab disebalik sesuatu peristiwa", "sentiasa berasa diri teraniaya", "menetapkan strategi untuk mencapai matlamat", "sentiasa sihat"];
 const TRAITS = ["Autonomi", "Kreatif", "Agresif", "Ekstrovert", "Pencapaian", "Kepelbagaian", "Intelektual", "Kepemimpinan", "Struktur", "Resilien / Daya Tahan", "Menolong", "Analitikal", "Kritik Diri", "Wawasan", "Ketelusan"];
 const PAGE_SIZE = 15;
-const APP_VERSION="v1.5.2";
+const APP_VERSION = "V1.6";
 const CLASSES = [
   "4 AL FARABI",
   "4 IBNU ABBAS",
@@ -74,13 +74,11 @@ $("#submitBtn").onclick=()=>{
   const kelas=$("#kelas").value;
   const jantina=$("#jantina").value;
 
-  const requestId =
+  const requestId=
     "REQ-" +
     Date.now() +
     "-" +
-    Math.random()
-      .toString(36)
-      .slice(2,10);
+    Math.random().toString(36).slice(2,10);
 
   const payload={
     action:"submit",
@@ -108,11 +106,8 @@ $("#submitBtn").onclick=()=>{
   btn.disabled=true;
   btn.textContent="SEDANG MENGHANTAR...";
 
-  let settled=false;
-
-  function cleanup(){
-    window.removeEventListener("message",handleSubmitResult);
-  }
+  let finished=false;
+  const deadline=Date.now()+30000;
 
   function restoreButton(){
     btn.disabled=false;
@@ -129,45 +124,86 @@ $("#submitBtn").onclick=()=>{
     updateProgress();
   }
 
-  function handleSubmitResult(event){
-    let originHost="";
-
-    try{
-      originHost=new URL(event.origin).hostname;
-    }catch(_){
-      return;
-    }
-
-    const originSah=
-      originHost==="script.google.com" ||
-      originHost==="script.googleusercontent.com" ||
-      originHost.endsWith(".googleusercontent.com");
-
-    if(!originSah) return;
-
-    const data=event.data;
-    if(!data || data.type!=="ITP_SUBMIT_RESULT") return;
-    if(data.requestId!==requestId) return;
-
-    settled=true;
-    cleanup();
+  function finishWithStatus(data){
+    if(finished) return;
+    finished=true;
     restoreButton();
 
-    if(data.success===true){
+    if(data && data.success===true){
       alert("Jawapan anda telah berjaya direkodkan. Terima kasih kerana menjawab dengan jujur.");
       resetForm();
       return;
     }
 
-    if(data.code==="DUPLICATE_RECORD"){
+    if(data && data.code==="DUPLICATE_RECORD"){
       alert("Rekod anda telah diterima sebelum ini. Sila rujuk guru jika perlu pembetulan.");
+      resetForm();
       return;
     }
 
-    alert(data.message || "Penghantaran tidak berjaya. Sila cuba semula.");
+    alert(
+      (data && data.message) ||
+      "Penghantaran tidak berjaya. Sila cuba semula."
+    );
   }
 
-  window.addEventListener("message",handleSubmitResult);
+  function pollStatus(){
+    if(finished) return;
+
+    if(Date.now()>deadline){
+      finished=true;
+      restoreButton();
+      alert(
+        "Data mungkin telah dihantar tetapi pengesahan mengambil masa terlalu lama. " +
+        "Jangan hantar berulang kali. Sila rujuk guru untuk semakan."
+      );
+      return;
+    }
+
+    const callbackName=
+      "__itpStatus_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).slice(2,8);
+
+    const script=document.createElement("script");
+
+    const cleanup=()=>{
+      try{ delete window[callbackName]; }catch(_){ window[callbackName]=undefined; }
+      if(script.parentNode) script.remove();
+    };
+
+    window[callbackName]=(data)=>{
+      cleanup();
+
+      if(!data || data.requestId!==requestId){
+        setTimeout(pollStatus,1200);
+        return;
+      }
+
+      if(data.state==="PENDING" || data.state==="PROCESSING"){
+        setTimeout(pollStatus,1200);
+        return;
+      }
+
+      finishWithStatus(data);
+    };
+
+    script.onerror=()=>{
+      cleanup();
+      setTimeout(pollStatus,1500);
+    };
+
+    const sep=endpoint.includes("?") ? "&" : "?";
+    script.src=
+      endpoint + sep +
+      "mode=status" +
+      "&requestId=" + encodeURIComponent(requestId) +
+      "&callback=" + encodeURIComponent(callbackName) +
+      "&_=" + Date.now();
+
+    document.head.appendChild(script);
+  }
 
   try{
     const form=document.createElement("form");
@@ -186,19 +222,15 @@ $("#submitBtn").onclick=()=>{
     form.submit();
 
     setTimeout(()=>{
-      form.remove();
-    },1500);
+      if(form.parentNode) form.remove();
+    },2000);
 
-    setTimeout(()=>{
-      if(settled) return;
-      cleanup();
-      restoreButton();
-      alert("Sistem belum menerima pengesahan penghantaran. Sila semak sambungan dan cuba semula.");
-    },25000);
+    // Mula semak status selepas POST dilepaskan.
+    setTimeout(pollStatus,900);
 
   }catch(err){
     console.error(err);
-    cleanup();
+    finished=true;
     restoreButton();
     alert("Penghantaran tidak berjaya. Sila cuba semula.");
   }
