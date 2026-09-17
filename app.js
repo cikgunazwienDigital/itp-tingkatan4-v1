@@ -9,6 +9,23 @@ let answers=Array(150).fill(null);
 const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+function isValidStudentPayload({nama,kelas,jantina,answers}){
+  if(typeof nama!=="string" || nama.trim().length<2 || nama.trim().length>100) return false;
+  if(!CLASSES.includes(kelas)) return false;
+  if(!["Lelaki","Perempuan"].includes(jantina)) return false;
+  if(!Array.isArray(answers) || answers.length!==150) return false;
+  if(!answers.every(v=>v==="Y" || v==="T")) return false;
+  return true;
+}
+
 function renderPage(){
   const start=page*PAGE_SIZE,end=Math.min(start+PAGE_SIZE,QUESTIONS.length);
   $("#questions").innerHTML=QUESTIONS.slice(start,end).map((q,i)=>{
@@ -45,9 +62,12 @@ function getRecords(){return JSON.parse(localStorage.getItem("itpT4Records")||"[
 function saveRecords(r){localStorage.setItem("itpT4Records",JSON.stringify(r))}
 
 $("#submitBtn").onclick=()=>{
-  const nama=$("#nama").value.trim(), kelas=$("#kelas").value.trim(), jantina=$("#jantina").value;
-  if(!nama||!kelas||!jantina) return alert("Sila lengkapkan nama, kelas dan jantina.");
-  if(answers.some(v=>!v)) return alert("Masih ada item yang belum dijawab.");
+  const nama=$("#nama").value.trim(), kelas=$("#kelas").value, jantina=$("#jantina").value;
+  const payload={nama,kelas,jantina,answers:[...answers]};
+  if(!isValidStudentPayload(payload)) {
+    if(answers.some(v=>!v)) return alert("Masih ada item yang belum dijawab.");
+    return alert("Maklumat murid tidak lengkap atau tidak sah.");
+  }
   const rec={id:Date.now(),nama,kelas,jantina,answers:[...answers],traits:calcTraits(answers),submittedAt:new Date().toISOString()};
   const records=getRecords(); records.push(rec); saveRecords(records);
   alert("Jawapan anda telah berjaya dihantar. Terima kasih kerana menjawab dengan jujur.");
@@ -57,8 +77,9 @@ $("#submitBtn").onclick=()=>{
 $("#adminBtn").onclick=()=>$("#modal").classList.remove("hidden");
 $("#cancelPin").onclick=()=>$("#modal").classList.add("hidden");
 $("#loginPin").onclick=()=>{
-  if($("#pin").value==="2026"){$("#modal").classList.add("hidden");showAdmin();$("#pin").value="";}
-  else alert("PIN tidak tepat.");
+  $("#modal").classList.add("hidden");
+  sessionStorage.setItem("itp_demo_teacher","1");
+  showAdmin();
 };
 $("#backBtn").onclick=()=>{$("#adminView").classList.add("hidden");$("#studentView").classList.remove("hidden")};
 
@@ -150,7 +171,7 @@ function renderTable(){
   const records=getFilteredRecords();
   $("#recordsBody").innerHTML=records.map(r=>{
     const top=[...r.traits].sort((a,b)=>b.percent-a.percent).slice(0,3).map(t=>`${t.name} (${t.percent}%)`).join(", ");
-    return `<tr><td>${r.nama}</td><td>${r.kelas}</td><td>${r.jantina}</td><td>${top}</td><td><button onclick="showDetail(${r.id})">Lihat</button></td></tr>`;
+    return `<tr><td>${escapeHTML(r.nama)}</td><td>${escapeHTML(r.kelas)}</td><td>${escapeHTML(r.jantina)}</td><td>${escapeHTML(top)}</td><td><button onclick="showDetail(${r.id})">Lihat</button></td></tr>`;
   }).join("") || '<tr><td colspan="5">Tiada rekod untuk tapisan ini.</td></tr>';
 }
 $("#search").addEventListener("input",()=>{renderTable();renderFilteredSummary()});

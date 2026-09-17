@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer"/>
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"/>
   <title>ITP Tingkatan 4 | UBKSHAKS</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -20,7 +23,7 @@
       <div class="card intro">
         <h2>Maklumat Murid</h2>
         <div class="grid3">
-          <label>Nama murid<input id="nama" type="text" placeholder="Nama penuh"/></label>
+          <label>Nama murid<input id="nama" type="text" placeholder="Nama penuh" maxlength="100" autocomplete="off"/></label>
           <label>Kelas
 <select id="kelas">
   <option value="">Pilih kelas</option>
@@ -52,6 +55,10 @@
     </section>
 
     <section id="adminView" class="hidden">
+      <div class="securityBanner">
+        <b>V1.3 SECURITY PREP</b>
+        <span>Versi ini masih menggunakan data tempatan (localStorage). Akses LIVE guru akan disahkan di server dalam V2.</span>
+      </div>
       <div class="adminHead">
         <div>
           <h2>Dashboard Guru</h2>
@@ -144,14 +151,15 @@
 
   <div id="modal" class="modal hidden">
     <div class="modalCard">
-      <h3>Akses Guru</h3>
-      <p>Masukkan PIN dashboard.</p>
-      <input id="pin" type="password" placeholder="PIN"/>
+      <h3>Akses Dashboard Guru — Mod Demo</h3>
+      <p>V1.3 ini tidak menggunakan PIN dalam kod. Data masih disimpan pada pelayar ini sahaja.</p>
+      <div class="securityNotice">
+        Dalam V2 LIVE, akses guru akan disahkan pada server menggunakan akaun/e-mel yang dibenarkan.
+      </div>
       <div class="modalActions">
         <button id="cancelPin" class="ghost">Batal</button>
-        <button id="loginPin">Masuk</button>
+        <button id="loginPin">Masuk Mod Demo</button>
       </div>
-      <small>PIN demo: 2026</small>
     </div>
   </div>
 
