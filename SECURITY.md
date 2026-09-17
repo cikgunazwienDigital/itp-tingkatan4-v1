@@ -29,3 +29,11 @@
 - Output user-controlled di-escape.
 - Content Security Policy dan Referrer Policy ditambah.
 - Belum dianggap LIVE/Production sehingga Google Apps Script + Google Sheet dengan pengesahan server siap.
+
+
+## V1.4 LIVE SUBMIT
+- Front-end menggunakan endpoint Web App awam hanya untuk SUBMIT.
+- Endpoint awam tidak dianggap secret dan tidak memberi akses baca.
+- Jangan tambah fungsi READ kepada endpoint murid.
+- Dashboard Guru LIVE mesti menggunakan laluan server berasingan yang mengesahkan guru.
+- Data murid sebenar tidak disimpan dalam localStorage selepas penghantaran.

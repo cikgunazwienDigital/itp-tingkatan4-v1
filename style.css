@@ -65,3 +65,9 @@ button.ghost{background:white;color:var(--navy);border:1px solid var(--line)}.pa
   background:#f7f8ff;border:1px solid var(--line);border-radius:12px;
   padding:12px;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5
 }
+
+.liveStatus{
+  margin-top:12px;display:inline-block;padding:8px 11px;border-radius:999px;
+  background:#eefbf3;border:1px solid #bfe8cd;color:#1f6b3a;font-size:12px;font-weight:700
+}
+.liveStatus.error{background:#fff1f1;border-color:#f2c4c4;color:#9b2c2c}

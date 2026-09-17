@@ -61,17 +61,56 @@ function calcTraits(ans){
 function getRecords(){return JSON.parse(localStorage.getItem("itpT4Records")||"[]")}
 function saveRecords(r){localStorage.setItem("itpT4Records",JSON.stringify(r))}
 
-$("#submitBtn").onclick=()=>{
+$("#submitBtn").onclick=async()=>{
   const nama=$("#nama").value.trim(), kelas=$("#kelas").value, jantina=$("#jantina").value;
-  const payload={nama,kelas,jantina,answers:[...answers]};
+  const payload={action:"submit",nama,kelas,jantina,answers:[...answers]};
+
   if(!isValidStudentPayload(payload)) {
     if(answers.some(v=>!v)) return alert("Masih ada item yang belum dijawab.");
     return alert("Maklumat murid tidak lengkap atau tidak sah.");
   }
-  const rec={id:Date.now(),nama,kelas,jantina,answers:[...answers],traits:calcTraits(answers),submittedAt:new Date().toISOString()};
-  const records=getRecords(); records.push(rec); saveRecords(records);
-  alert("Jawapan anda telah berjaya dihantar. Terima kasih kerana menjawab dengan jujur.");
-  answers=Array(150).fill(null); page=0; $("#nama").value=""; $("#kelas").value=""; $("#jantina").value=""; renderPage(); updateProgress();
+
+  const endpoint=window.ITP_CONFIG && window.ITP_CONFIG.SUBMIT_ENDPOINT;
+  if(!endpoint) return alert("Konfigurasi penghantaran belum tersedia.");
+
+  const btn=$("#submitBtn");
+  const oldText=btn.textContent;
+  btn.disabled=true;
+  btn.textContent="SEDANG MENGHANTAR...";
+
+  try{
+    const res=await fetch(endpoint,{
+      method:"POST",
+      redirect:"follow",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload)
+    });
+
+    if(!res.ok) throw new Error("HTTP "+res.status);
+
+    const data=await res.json();
+    if(!data || data.success!==true){
+      throw new Error((data && data.message) || "Penghantaran tidak berjaya.");
+    }
+
+    alert("Jawapan anda telah berjaya dihantar. Terima kasih kerana menjawab dengan jujur.");
+
+    // Data murid sebenar tidak disimpan ke localStorage.
+    answers=Array(150).fill(null);
+    page=0;
+    $("#nama").value="";
+    $("#kelas").value="";
+    $("#jantina").value="";
+    renderPage();
+    updateProgress();
+
+  }catch(err){
+    console.error(err);
+    alert("Penghantaran belum berjaya. Jangan tutup halaman. Sila cuba sekali lagi.");
+  }finally{
+    btn.disabled=false;
+    btn.textContent=oldText;
+  }
 };
 
 $("#adminBtn").onclick=()=>$("#modal").classList.remove("hidden");
