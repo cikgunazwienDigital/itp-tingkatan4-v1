@@ -61,7 +61,7 @@ function calcTraits(ans){
 function getRecords(){return JSON.parse(localStorage.getItem("itpT4Records")||"[]")}
 function saveRecords(r){localStorage.setItem("itpT4Records",JSON.stringify(r))}
 
-$("#submitBtn").onclick=async()=>{
+$("#submitBtn").onclick=()=>{
   const nama=$("#nama").value.trim(), kelas=$("#kelas").value, jantina=$("#jantina").value;
   const payload={action:"submit",nama,kelas,jantina,answers:[...answers]};
 
@@ -80,35 +80,47 @@ $("#submitBtn").onclick=async()=>{
 
   try{
     /*
-      Google Apps Script Web App tidak sentiasa membenarkan respons CORS
-      dibaca terus oleh GitHub Pages. Untuk endpoint murid yang hanya WRITE,
-      gunakan no-cors. Browser akan menghantar data tetapi respons menjadi opaque.
+      Kaedah FORM + hidden iframe digunakan untuk elakkan masalah CORS/redirect
+      antara GitHub Pages dan Google Apps Script.
     */
-    await fetch(endpoint,{
-      method:"POST",
-      mode:"no-cors",
-      redirect:"follow",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify(payload)
-    });
+    const form=document.createElement("form");
+    form.method="POST";
+    form.action=endpoint;
+    form.target="itpSubmitFrame";
+    form.style.display="none";
 
-    alert("Jawapan anda telah dihantar. Terima kasih kerana menjawab dengan jujur.");
+    const input=document.createElement("input");
+    input.type="hidden";
+    input.name="payload";
+    input.value=JSON.stringify(payload);
 
-    // Data murid sebenar tidak disimpan ke localStorage.
-    answers=Array(150).fill(null);
-    page=0;
-    $("#nama").value="";
-    $("#kelas").value="";
-    $("#jantina").value="";
-    renderPage();
-    updateProgress();
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+
+    // Beri masa kepada browser menghantar POST sebelum reset borang.
+    setTimeout(()=>{
+      form.remove();
+
+      alert("Jawapan anda telah dihantar. Sila tunggu sebentar sebelum menutup halaman.");
+
+      answers=Array(150).fill(null);
+      page=0;
+      $("#nama").value="";
+      $("#kelas").value="";
+      $("#jantina").value="";
+      renderPage();
+      updateProgress();
+
+      btn.disabled=false;
+      btn.textContent=oldText;
+    },1500);
 
   }catch(err){
     console.error(err);
-    alert("Penghantaran belum berjaya. Jangan tutup halaman. Sila cuba sekali lagi.");
-  }finally{
     btn.disabled=false;
     btn.textContent=oldText;
+    alert("Penghantaran belum berjaya. Jangan tutup halaman. Sila cuba sekali lagi.");
   }
 };
 
