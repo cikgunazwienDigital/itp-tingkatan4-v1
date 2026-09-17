@@ -1,17 +1,32 @@
-i-CITRA ITP TINGKATAN 4 — V1.4.1 LIVE SUBMIT FIX
+i-CITRA ITP TINGKATAN 4 — V1.4.3 CSP FIX
 
-PEMBAIKAN
-- Isu submit dari GitHub Pages ke Google Apps Script diperbaiki.
-- Punca: respons Google Apps Script Web App boleh disekat oleh polisi CORS browser apabila dibaca melalui fetch biasa.
-- Kaedah penghantaran murid ditukar kepada fetch(mode="no-cors").
-- Endpoint kekal WRITE sahaja.
-- Data dihantar sebagai text/plain JSON.
-- Data murid sebenar tidak disimpan dalam localStorage selepas penghantaran.
+PUNCA RALAT DITEMUI
+V1.3 Security Prep menggunakan Content Security Policy:
+  form-action 'self'
 
-NOTA PENTING
-- Dalam mod no-cors, browser tidak boleh membaca JSON respons Google Apps Script.
-- Oleh sebab itu front-end hanya mengesahkan bahawa permintaan penghantaran telah dilepaskan oleh browser.
-- Backend masih menjalankan validasi penuh sebelum menulis ke RESPON_MURID.
-- Ujian selepas kemas kini mesti disahkan dengan melihat baris baharu dalam Google Sheet.
+V1.4.2 pula menghantar borang terus dari GitHub Pages ke Google Apps Script.
+CSP lama menghalang borang daripada dihantar ke domain luar.
 
-Dashboard Guru masih mod demo/tempatan sehingga modul READ selamat guru dibina.
+Selain itu hidden iframe yang menerima respons Google juga memerlukan frame-src
+untuk domain Google Apps Script.
+
+PEMBAIKAN V1.4.3
+- form-action kini membenarkan:
+  https://script.google.com
+  https://script.googleusercontent.com
+- frame-src kini membenarkan:
+  https://script.google.com
+  https://script.googleusercontent.com
+- Kaedah POST form + hidden iframe dikekalkan.
+- Backend doPost V1.4.2 tidak perlu diubah lagi.
+- config.js tidak perlu diubah.
+- Paparan status menunjukkan V1.4.3 supaya mudah sahkan cache/deploy.
+
+UJIAN
+1. Upload index.html terkini ke GitHub (boleh upload semua fail V1.4.3).
+2. Commit.
+3. Tunggu GitHub Pages deploy.
+4. Hard refresh / Incognito.
+5. Pastikan label V1.4.3 kelihatan.
+6. Submit satu rekod ujian.
+7. Semak RESPON_MURID.

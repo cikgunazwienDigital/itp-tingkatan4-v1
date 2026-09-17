@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"/>
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; form-action 'self' https://script.google.com https://script.googleusercontent.com; frame-src https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"/>
   <title>ITP Tingkatan 4 | UBKSHAKS</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -39,7 +39,7 @@
           </label>
         </div>
         <p class="note">Jawab semua 150 pernyataan dengan memilih <b>YA</b> atau <b>TIDAK</b>. Keputusan tidak dipaparkan kepada murid.</p>
-        <div id="liveStatus" class="liveStatus">Status penghantaran: <b>LIVE</b> • Sambungan Google Sheet</div>
+        <div id="liveStatus" class="liveStatus">Status penghantaran: <b>LIVE</b> • Sambungan Google Sheet • <b>V1.4.3</b></div>
       </div>
 
       <div class="progressWrap"><div id="progressBar"></div></div>

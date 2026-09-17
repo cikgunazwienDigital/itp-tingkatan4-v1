@@ -44,3 +44,16 @@
 - Ini diperlukan kerana GitHub Pages tidak semestinya dibenarkan membaca respons Apps Script secara cross-origin.
 - Endpoint murid kekal WRITE sahaja.
 - Validasi sebenar tetap berlaku di backend sebelum `appendRow`.
+
+
+## V1.4.2 FORM POST
+- GitHub Pages menghantar respons murid melalui standard HTML POST form ke hidden iframe.
+- Ini mengelakkan kebergantungan kepada pembacaan respons cross-origin.
+- Backend mesti membaca `e.parameter.payload`, JSON.parse, kemudian melakukan validasi server sedia ada.
+- Endpoint kekal submit-only.
+
+
+## V1.4.3 CSP FIX
+- `form-action` membenarkan hanya GitHub origin sendiri serta domain Google Apps Script yang diperlukan.
+- `frame-src` membenarkan hanya domain Google Apps Script yang diperlukan untuk hidden iframe.
+- Perlindungan CSP lain dikekalkan.
