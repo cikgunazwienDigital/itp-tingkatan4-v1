@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ITP Tingkatan 4 | UBKSHAKS</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>i-CITRA ITP TINGKATAN 4</h1>
+      <p>Inventori Tret Personaliti | UBKSHAKS</p>
+    </div>
+    <button id="adminBtn" class="ghost">Dashboard Guru</button>
+  </header>
+
+  <main class="shell">
+    <section id="studentView">
+      <div class="card intro">
+        <h2>Maklumat Murid</h2>
+        <div class="grid3">
+          <label>Nama murid<input id="nama" type="text" placeholder="Nama penuh"/></label>
+          <label>Kelas<input id="kelas" type="text" placeholder="Contoh: 4 Ibnu Abbas"/></label>
+          <label>Jantina
+            <select id="jantina"><option value="">Pilih</option><option>Lelaki</option><option>Perempuan</option></select>
+          </label>
+        </div>
+        <p class="note">Jawab semua 150 pernyataan dengan memilih <b>YA</b> atau <b>TIDAK</b>. Keputusan tidak dipaparkan kepada murid.</p>
+      </div>
+
+      <div class="progressWrap"><div id="progressBar"></div></div>
+      <div class="progressText" id="progressText">0 / 150 dijawab</div>
+
+      <div id="questions" class="questions"></div>
+
+      <div class="pager">
+        <button id="prevBtn" class="ghost">← Sebelumnya</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn">Seterusnya →</button>
+      </div>
+      <button id="submitBtn" class="submit hidden">HANTAR JAWAPAN</button>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="adminHead">
+        <div>
+          <h2>Dashboard Guru</h2>
+          <p>Rumusan respons dan profil 15 tret.</p>
+        </div>
+        <button id="backBtn" class="ghost">Kembali ke Murid</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Jumlah Rekod</span><b id="statTotal">0</b></div>
+        <div class="stat"><span>Lelaki</span><b id="statL">0</b></div>
+        <div class="stat"><span>Perempuan</span><b id="statP">0</b></div>
+        <div class="stat"><span>Kelas</span><b id="statK">0</b></div>
+      </div>
+
+      <div class="card">
+        <div class="filters">
+          <input id="search" placeholder="Cari nama murid..."/>
+          <select id="filterClass"><option value="">Semua kelas</option></select>
+        </div>
+        <div class="tableWrap">
+          <table>
+            <thead><tr><th>Nama</th><th>Kelas</th><th>Jantina</th><th>Top 3 Tret</th><th>Tindakan</th></tr></thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Purata Peratus Mengikut Tret</h3>
+        <div id="summaryBars" class="bars"></div>
+      </div>
+
+      <div id="detailCard" class="card hidden">
+        <div class="detailHead">
+          <div><h3 id="detailName"></h3><p id="detailMeta"></p></div>
+          <button id="closeDetail" class="ghost">Tutup</button>
+        </div>
+        <div id="traitGrid" class="traitGrid"></div>
+        <h4>Jawapan 150 Item</h4>
+        <div id="answerGrid" class="answerGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modalCard">
+      <h3>Akses Guru</h3>
+      <p>Masukkan PIN dashboard.</p>
+      <input id="pin" type="password" placeholder="PIN"/>
+      <div class="modalActions">
+        <button id="cancelPin" class="ghost">Batal</button>
+        <button id="loginPin">Masuk</button>
+      </div>
+      <small>PIN demo: 2026</small>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
