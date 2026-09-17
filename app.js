@@ -79,21 +79,20 @@ $("#submitBtn").onclick=async()=>{
   btn.textContent="SEDANG MENGHANTAR...";
 
   try{
-    const res=await fetch(endpoint,{
+    /*
+      Google Apps Script Web App tidak sentiasa membenarkan respons CORS
+      dibaca terus oleh GitHub Pages. Untuk endpoint murid yang hanya WRITE,
+      gunakan no-cors. Browser akan menghantar data tetapi respons menjadi opaque.
+    */
+    await fetch(endpoint,{
       method:"POST",
+      mode:"no-cors",
       redirect:"follow",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify(payload)
     });
 
-    if(!res.ok) throw new Error("HTTP "+res.status);
-
-    const data=await res.json();
-    if(!data || data.success!==true){
-      throw new Error((data && data.message) || "Penghantaran tidak berjaya.");
-    }
-
-    alert("Jawapan anda telah berjaya dihantar. Terima kasih kerana menjawab dengan jujur.");
+    alert("Jawapan anda telah dihantar. Terima kasih kerana menjawab dengan jujur.");
 
     // Data murid sebenar tidak disimpan ke localStorage.
     answers=Array(150).fill(null);

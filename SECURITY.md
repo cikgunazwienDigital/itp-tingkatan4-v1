@@ -37,3 +37,10 @@
 - Jangan tambah fungsi READ kepada endpoint murid.
 - Dashboard Guru LIVE mesti menggunakan laluan server berasingan yang mengesahkan guru.
 - Data murid sebenar tidak disimpan dalam localStorage selepas penghantaran.
+
+
+## V1.4.1 CORS FIX
+- Submit murid menggunakan `fetch(..., mode="no-cors")`.
+- Ini diperlukan kerana GitHub Pages tidak semestinya dibenarkan membaca respons Apps Script secara cross-origin.
+- Endpoint murid kekal WRITE sahaja.
+- Validasi sebenar tetap berlaku di backend sebelum `appendRow`.

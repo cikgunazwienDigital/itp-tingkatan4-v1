@@ -1,25 +1,17 @@
-i-CITRA ITP TINGKATAN 4 — V1.4 LIVE SUBMIT
+i-CITRA ITP TINGKATAN 4 — V1.4.1 LIVE SUBMIT FIX
 
-STATUS
-- Penghantaran murid: LIVE ke Google Apps Script / Google Sheet.
-- Dashboard Guru: masih MOD DEMO menggunakan localStorage sehingga endpoint READ guru yang disahkan siap.
+PEMBAIKAN
+- Isu submit dari GitHub Pages ke Google Apps Script diperbaiki.
+- Punca: respons Google Apps Script Web App boleh disekat oleh polisi CORS browser apabila dibaca melalui fetch biasa.
+- Kaedah penghantaran murid ditukar kepada fetch(mode="no-cors").
+- Endpoint kekal WRITE sahaja.
+- Data dihantar sebagai text/plain JSON.
+- Data murid sebenar tidak disimpan dalam localStorage selepas penghantaran.
 
-KEMAS KINI
-- config.js baharu menyimpan URL Web App awam.
-- app.js menghantar payload JSON ke backend dengan Content-Type text/plain.
-- Data sebenar murid tidak lagi disimpan ke localStorage selepas submit.
-- Murid hanya menerima status berjaya/gagal; skor dan peratus tidak dipulangkan.
-- CSP sedia ada membenarkan sambungan hanya ke domain Google Script yang diperlukan.
+NOTA PENTING
+- Dalam mod no-cors, browser tidak boleh membaca JSON respons Google Apps Script.
+- Oleh sebab itu front-end hanya mengesahkan bahawa permintaan penghantaran telah dilepaskan oleh browser.
+- Backend masih menjalankan validasi penuh sebelum menulis ke RESPON_MURID.
+- Ujian selepas kemas kini mesti disahkan dengan melihat baris baharu dalam Google Sheet.
 
-PENTING
-URL Web App bukan secret. Keselamatan data datang daripada backend:
-- endpoint murid tidak mempunyai fungsi READ,
-- Google Sheet kekal Restricted,
-- modul bacaan guru akan menggunakan pengesahan server/allowlist.
-
-Fail untuk GitHub:
-- index.html
-- style.css
-- app.js
-- config.js
-- SECURITY.md
+Dashboard Guru masih mod demo/tempatan sehingga modul READ selamat guru dibina.
