@@ -57,7 +57,10 @@
           <h2>Dashboard Guru</h2>
           <p>Rumusan respons dan profil 15 tret.</p>
         </div>
-        <button id="backBtn" class="ghost">Kembali ke Murid</button>
+        <div class="adminActions">
+  <button id="printBtn" class="ghost">Cetak Rumusan</button>
+  <button id="backBtn" class="ghost">Kembali ke Murid</button>
+</div>
       </div>
 
       <div class="stats">
@@ -101,6 +104,30 @@
       <div class="card">
         <h3>Purata Peratus Mengikut Tret</h3>
         <div id="summaryBars" class="bars"></div>
+      </div>
+
+
+      <div class="card">
+        <h3>Rumusan Setiap Kelas</h3>
+        <p class="muted">Purata 15 tret dan Top 3 tret bagi setiap kelas.</p>
+        <div id="classCards" class="classCards"></div>
+      </div>
+
+      <div class="card">
+        <h3>Perbandingan Kelas</h3>
+        <p class="muted">Purata peratus bagi setiap tret mengikut kelas.</p>
+        <div class="tableWrap">
+          <table id="comparisonTable" class="comparisonTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="overallSummary" class="card">
+        <h3>Rumusan Keseluruhan Tingkatan 4</h3>
+        <div id="overallTopTraits" class="topTraits"></div>
+        <div id="overallNarrative" class="summaryNarrative"></div>
       </div>
 
       <div id="detailCard" class="card hidden">

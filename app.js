@@ -66,6 +66,64 @@ function showAdmin(){
   $("#studentView").classList.add("hidden");$("#adminView").classList.remove("hidden");
   renderAdmin();
 }
+
+function averageTraits(records){
+  if(!records.length) return TRAITS.map(name=>({name,value:0}));
+  return TRAITS.map((name,i)=>({
+    name,
+    value: records.reduce((s,r)=>s+r.traits[i].percent,0)/records.length
+  }));
+}
+function getTopTraits(avg,n=3){
+  return [...avg].sort((a,b)=>b.value-a.value).slice(0,n);
+}
+function renderClassSummaries(){
+  const all=getRecords();
+  $("#classCards").innerHTML=CLASSES.map(cls=>{
+    const records=all.filter(r=>r.kelas===cls);
+    if(!records.length){
+      return `<div class="classCard"><h4>${cls}</h4><div class="count">Belum ada rekod</div></div>`;
+    }
+    const avg=averageTraits(records);
+    const top=getTopTraits(avg,3);
+    const mini=avg.map(x=>`<div class="miniBarRow"><span>${x.name}</span><div class="miniTrack"><div class="miniFill" style="width:${x.value}%"></div></div><b>${x.value.toFixed(1)}%</b></div>`).join("");
+    return `<div class="classCard">
+      <h4>${cls}</h4>
+      <div class="count">${records.length} murid</div>
+      <div class="classTop">${top.map((x,i)=>`<span class="pill">Top ${i+1}: ${x.name} ${x.value.toFixed(1)}%</span>`).join("")}</div>
+      <div class="miniBars">${mini}</div>
+    </div>`;
+  }).join("");
+}
+function renderComparisonTable(){
+  const all=getRecords();
+  const thead=$("#comparisonTable thead");
+  const tbody=$("#comparisonTable tbody");
+  thead.innerHTML=`<tr><th>Tret</th>${CLASSES.map(c=>`<th>${c}</th>`).join("")}</tr>`;
+  tbody.innerHTML=TRAITS.map((trait,i)=>{
+    const cells=CLASSES.map(cls=>{
+      const records=all.filter(r=>r.kelas===cls);
+      if(!records.length) return `<td>-</td>`;
+      const v=records.reduce((s,r)=>s+r.traits[i].percent,0)/records.length;
+      return `<td>${v.toFixed(1)}%</td>`;
+    }).join("");
+    return `<tr><td><b>${trait}</b></td>${cells}</tr>`;
+  }).join("");
+}
+function renderOverallSummary(){
+  const records=getRecords();
+  if(!records.length){
+    $("#overallTopTraits").innerHTML="<p>Belum ada data.</p>";
+    $("#overallNarrative").innerHTML="<p>Rumusan keseluruhan akan dipaparkan selepas data murid diterima.</p>";
+    return;
+  }
+  const avg=averageTraits(records);
+  const top=getTopTraits(avg,3);
+  $("#overallTopTraits").innerHTML=top.map((x,i)=>`<div class="topTrait"><span class="rank">TOP ${i+1}</span><b>${x.name}</b><strong>${x.value.toFixed(1)}%</strong></div>`).join("");
+  $("#overallNarrative").innerHTML=`<p><b>Jumlah responden:</b> ${records.length} murid.</p>
+  <p>Tiga tret dengan purata tertinggi bagi keseluruhan Tingkatan 4 ialah <b>${top[0].name}</b> (${top[0].value.toFixed(1)}%), <b>${top[1].name}</b> (${top[1].value.toFixed(1)}%) dan <b>${top[2].name}</b> (${top[2].value.toFixed(1)}%).</p>`;
+}
+
 function renderAdmin(){
   const records=getRecords();
   $("#statTotal").textContent=records.length;
@@ -74,6 +132,9 @@ function renderAdmin(){
   $("#statK").textContent=new Set(records.map(r=>r.kelas)).size;
   renderTable();
   renderFilteredSummary();
+  renderClassSummaries();
+  renderComparisonTable();
+  renderOverallSummary();
 }
 function getFilteredRecords(){
   const q=$("#search").value.toLowerCase().trim();
@@ -126,5 +187,6 @@ window.showDetail=(id)=>{
   $("#detailCard").scrollIntoView({behavior:"smooth"});
 };
 $("#closeDetail").onclick=()=>$("#detailCard").classList.add("hidden");
+$("#printBtn").onclick=()=>window.print();
 
 renderPage(); updateProgress();

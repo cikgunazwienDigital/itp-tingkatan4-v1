@@ -32,3 +32,24 @@ button.ghost{background:white;color:var(--navy);border:1px solid var(--line)}.pa
 .topTrait b{display:block;font-size:20px;margin:5px 0}
 .topTrait strong{font-size:28px;color:var(--navy)}
 @media(max-width:800px){.topTraits{grid-template-columns:1fr}}
+
+.adminActions{display:flex;gap:10px;flex-wrap:wrap}
+.classCards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.classCard{border:1px solid var(--line);border-radius:18px;padding:16px;background:white}
+.classCard h4{margin:0 0 6px}.classCard .count{color:var(--muted);font-size:13px;margin-bottom:12px}
+.classTop{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.pill{border:1px solid var(--line);background:#f8f9ff;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:700}
+.miniBars{display:grid;gap:7px}.miniBarRow{display:grid;grid-template-columns:130px 1fr 48px;gap:8px;align-items:center;font-size:12px}
+.miniTrack{height:8px;background:#edf0f8;border-radius:999px;overflow:hidden}.miniFill{height:100%;background:linear-gradient(90deg,var(--royal),var(--purple))}
+.comparisonTable th{position:sticky;top:0;background:white;z-index:1}
+.comparisonTable td,.comparisonTable th{white-space:nowrap}
+.summaryNarrative{margin-top:16px;line-height:1.6;background:#fafbff;border:1px solid var(--line);border-radius:16px;padding:16px}
+@media(max-width:800px){.classCards{grid-template-columns:1fr}.miniBarRow{grid-template-columns:110px 1fr 44px}}
+@media print{
+  body{background:white}
+  .topbar,#studentView,#backBtn,#printBtn,.filters,#recordsBody button,.modal{display:none!important}
+  .shell{width:100%;margin:0}
+  #adminView{display:block!important}
+  .card,.stat{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  .adminHead{margin-bottom:8px}
+}
