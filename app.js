@@ -69,7 +69,6 @@ function getRecords(){return JSON.parse(localStorage.getItem("itpT4Records")||"[
 function saveRecords(r){localStorage.setItem("itpT4Records",JSON.stringify(r))}
 
 $("#submitBtn").onclick=()=>{
-
   const nama=$("#nama").value.trim();
   const kelas=$("#kelas").value;
   const jantina=$("#jantina").value;
@@ -91,24 +90,77 @@ $("#submitBtn").onclick=()=>{
     answers:[...answers]
   };
 
-  if(!isValidStudentPayload(payload)) {
-    if(answers.some(v=>!v)) return alert("Masih ada item yang belum dijawab.");
+  if(!isValidStudentPayload(payload)){
+    if(answers.some(v=>!v)){
+      return alert("Masih ada item yang belum dijawab.");
+    }
     return alert("Maklumat murid tidak lengkap atau tidak sah.");
   }
 
   const endpoint=window.ITP_CONFIG && window.ITP_CONFIG.SUBMIT_ENDPOINT;
-  if(!endpoint) return alert("Konfigurasi penghantaran belum tersedia.");
+  if(!endpoint){
+    return alert("Konfigurasi penghantaran belum tersedia.");
+  }
 
   const btn=$("#submitBtn");
   const oldText=btn.textContent;
   btn.disabled=true;
   btn.textContent="SEDANG MENGHANTAR...";
 
+  let settled=false;
+
+  function cleanup(){
+    window.removeEventListener("message",handleSubmitResult);
+  }
+
+  function restoreButton(){
+    btn.disabled=false;
+    btn.textContent=oldText;
+  }
+
+  function resetForm(){
+    answers=Array(150).fill(null);
+    page=0;
+    $("#nama").value="";
+    $("#kelas").value="";
+    $("#jantina").value="";
+    renderPage();
+    updateProgress();
+  }
+
+  function handleSubmitResult(event){
+    const allowedOrigins=[
+      "https://script.google.com",
+      "https://script.googleusercontent.com"
+    ];
+
+    if(!allowedOrigins.includes(event.origin)) return;
+
+    const data=event.data;
+    if(!data || data.type!=="ITP_SUBMIT_RESULT") return;
+    if(data.requestId!==requestId) return;
+
+    settled=true;
+    cleanup();
+    restoreButton();
+
+    if(data.success===true){
+      alert("Jawapan anda telah berjaya direkodkan. Terima kasih kerana menjawab dengan jujur.");
+      resetForm();
+      return;
+    }
+
+    if(data.code==="DUPLICATE_RECORD"){
+      alert("Rekod anda telah diterima sebelum ini. Sila rujuk guru jika perlu pembetulan.");
+      return;
+    }
+
+    alert(data.message || "Penghantaran tidak berjaya. Sila cuba semula.");
+  }
+
+  window.addEventListener("message",handleSubmitResult);
+
   try{
-    /*
-      Kaedah FORM + hidden iframe digunakan untuk elakkan masalah CORS/redirect
-      antara GitHub Pages dan Google Apps Script.
-    */
     const form=document.createElement("form");
     form.method="POST";
     form.action=endpoint;
@@ -124,29 +176,22 @@ $("#submitBtn").onclick=()=>{
     document.body.appendChild(form);
     form.submit();
 
-    // Beri masa kepada browser menghantar POST sebelum reset borang.
     setTimeout(()=>{
       form.remove();
-
-      alert("Jawapan anda telah dihantar. Sila tunggu sebentar sebelum menutup halaman.");
-
-      answers=Array(150).fill(null);
-      page=0;
-      $("#nama").value="";
-      $("#kelas").value="";
-      $("#jantina").value="";
-      renderPage();
-      updateProgress();
-
-      btn.disabled=false;
-      btn.textContent=oldText;
     },1500);
+
+    setTimeout(()=>{
+      if(settled) return;
+      cleanup();
+      restoreButton();
+      alert("Sistem belum menerima pengesahan penghantaran. Sila semak sambungan dan cuba semula.");
+    },15000);
 
   }catch(err){
     console.error(err);
-    btn.disabled=false;
-    btn.textContent=oldText;
-    alert("Penghantaran belum berjaya. Jangan tutup halaman. Sila cuba sekali lagi.");
+    cleanup();
+    restoreButton();
+    alert("Penghantaran tidak berjaya. Sila cuba semula.");
   }
 };
 
